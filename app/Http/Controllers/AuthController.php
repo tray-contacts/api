@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Dingo\Api\Routing\Helpers;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
+    use Helpers;
+
     /**
      * Create a new AuthController instance.
      *
@@ -19,23 +24,17 @@ class AuthController extends Controller
     /**
      * Get a JWT via given credentials.
      *
-     * @param Request $request
+     * @param LoginRequest $request
      * @return \Dingo\Api\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $this->validate($request, [
-            'email'    => ['required', 'email'],
-            'password' => 'required',
-        ]);
-
-        $credentials = $request->only(['email', 'password']);
-        if (Auth::attempt($credentials)) {
-            return $this->response->array(['message' => 'Successfully logged in.']);
+        $credentials = $request->validated();
+        if (!$token = auth()->attempt($credentials)) {
+            return $this->response->errorUnauthorized('Invalid Email or Password.');
         }
-
-        return $this->response->errorUnauthorized('Invalid Email or Password.');
+        return $this->respondWithToken($token);
     }
 
     /**
@@ -45,17 +44,44 @@ class AuthController extends Controller
      */
     public function getUser()
     {
-        return $this->response->item(Auth::user(), new UserTransformer);
+        return $this->response->item(auth()->user(), new UserTransformer);
     }
     /**
-         * Log the user out (Invalidate the token).
+     * Log the user out (Invalidate the token).
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function logout()
     {
-        Auth::logout();
+        auth()->logout();
 
         return $this->response->array(['message' => 'Successfully logged out']);
+    }
+
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param string $token
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    protected function respondWithToken($token)
+    {
+        return $this->response->array([
+            'access_token' => $token,
+            'token_type'   => 'bearer',
+            'expires_in'   => auth()->factory()->getTTL() * 60,
+        ]);
     }
 }

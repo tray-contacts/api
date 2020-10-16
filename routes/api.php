@@ -29,6 +29,7 @@ $api->version(['v1'], function ($api) {
     $api->group(['middleware' => 'api.auth'], function ($api) {
 
         $api->group(['prefix' => 'auth'], function ($api) {
+
             $api->post('logout', [
                 'as'   => 'auth.logout',
                 'uses' => 'App\Http\Controllers\AuthController@logout',
@@ -47,9 +48,8 @@ $api->version(['v1'], function ($api) {
         });
 
 
-        /* $api->resource('users', 'App\Http\Controllers\UserController', ['middleware' => 'role:admin,user']); */
+        $api->resource('users', 'App\Http\Controllers\UserController'); 
     });
-    $api->resource('users', 'App\Http\Controllers\UserController'); // TODO: put inside middleware api.auth
 });
 
 
