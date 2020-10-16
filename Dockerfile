@@ -1,5 +1,7 @@
 FROM php:7.4-fpm
 
+MAINTAINER Leonardo Silva <leeosilva0909@gmail.com>
+
 # Copy composer.lock and composer.json
 COPY composer.lock composer.json /var/www/
 
@@ -7,32 +9,29 @@ COPY composer.lock composer.json /var/www/
 WORKDIR /var/www
 
 # Install dependencies
-
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
+    vim curl git \
     libfreetype6-dev \
-    libonig-dev \
-    locales \
-    libzip-dev \
+    build-essential \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libpng-dev \
+    libicu-dev \
     libpq-dev \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl
+    libxpm-dev \
+    zlib1g-dev \
+    postgresql-dev \
+    libncurses5-dev \ 
+    libvpx-dev 
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install pdo exif pcntl
-
+RUN docker-php-ext-install -j$(nproc) exif pcntl 
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ 
-RUN docker-php-ext-install gd
-RUN docker-php-ext-install pgsql pdo_pgsql
+RUN docker-php-ext-install -j$(nproc) gd
+RUN docker-php-ext-install -j$(nproc) pgsql pdo pdo_pgsql
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
