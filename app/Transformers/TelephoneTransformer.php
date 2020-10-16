@@ -18,6 +18,7 @@ class TelephoneTransformer extends TransformerAbstract
         return [
             'id'           => $telephone->id,
             'phone_number' => $telephone->phone_number,
+            'phone_type'   => $telephone->phoneType->description,
         ];
     }
 }
