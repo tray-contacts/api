@@ -9,8 +9,6 @@ use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
-    use Helpers;
-
     /**
      * Create a new AuthController instance.
      *
@@ -46,6 +44,7 @@ class AuthController extends Controller
     {
         return $this->response->item(auth()->user(), new UserTransformer);
     }
+
     /**
      * Log the user out (Invalidate the token).
      *
@@ -57,7 +56,6 @@ class AuthController extends Controller
 
         return $this->response->array(['message' => 'Successfully logged out']);
     }
-
 
     /**
      * Refresh a token.
