@@ -7,14 +7,6 @@ use League\Fractal\TransformerAbstract;
 
 class TelephoneTransformer extends TransformerAbstract
 {
-
-    /**
-     * list of resources possible to include
-     *
-     * @var array
-     */
-    protected $defaultincludes = ['telephoneType'];
-
     /**
      * Turn this item object into a generic array
      *
@@ -27,16 +19,6 @@ class TelephoneTransformer extends TransformerAbstract
             'id'           => $telephone->id,
             'phone_number' => $telephone->phone_number,
         ];
-    }
-
-    /**
-     * Include telephone 
-     *
-     * @param User $user
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeTelephoneType(Telephone $telephone){
-        return $this->item($telephone->telephoneType, new TelephoneTransformer);
     }
 }
 

@@ -14,14 +14,14 @@ class TelephoneSeeder extends Seeder
      */
     public function run()
     {
-        const Residential = 0;
-        const Comercial = 1;
-        const Cellular = 2;
+        $residential = 0;
+        $comercial = 1;
+        $cellular = 2;
 
         $testUser = User::find(1)->id;
 
         $phones = [
-            ['phone_number' => '14996443023', 'user_id' => $testUser, 'phone_type_id' => Cellular],
+            ['phone_number' => '14996443023', 'user_id' => $testUser, 'phone_type_id' => $cellular],
         ];
 
         foreach($phones as $phone) {

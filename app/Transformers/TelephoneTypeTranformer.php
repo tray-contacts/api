@@ -21,15 +21,5 @@ class TelephoneTransformer extends TransformerAbstract
             'email'      => $user->email,
         ];
     }
-
-    /**
-     * Include telephone 
-     *
-     * @param User $user
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeTelephoneType(Telephone $telephone){
-        return $this->item($telephone->telephoneType, new TelephoneTransformer);
-    }
 }
 

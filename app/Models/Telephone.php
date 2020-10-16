@@ -17,13 +17,4 @@ class Telephone extends Model
     protected $hidden = [
         'created_at', 'updated_at',
     ];
-
-    /**
-     * Gets the phone type.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
-     */
-    public function phoneType(){
-        return $this->belongsTo(PhoneType::class);
-    }
 }

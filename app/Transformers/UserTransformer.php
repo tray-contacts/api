@@ -12,7 +12,7 @@ class UserTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $defaultincludes = ['telephone'];
+    protected $defaultIncludes = ['telephone'];
 
     /**
      * Turn this item object into a generic array
@@ -29,9 +29,8 @@ class UserTransformer extends TransformerAbstract
         ];
     }
 
-
     /**
-     * Include Telephone 
+     * Include telephone 
      *
      * @param User $user
      * @return \League\Fractal\Resource\Item
@@ -39,6 +38,5 @@ class UserTransformer extends TransformerAbstract
     public function includeTelephone(User $user){
         return $this->item($user->telephone, new TelephoneTransformer);
     }
-
 }
 

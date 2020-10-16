@@ -72,7 +72,6 @@ class AuthController extends Controller
      * Get the token array structure.
      *
      * @param string $token
-     *
      * @return \Dingo\Api\Http\Response
      */
     protected function respondWithToken($token)
