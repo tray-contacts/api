@@ -20,7 +20,6 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libxpm-dev \
     zlib1g-dev \
-    postgresql-dev \
     libncurses5-dev \ 
     libvpx-dev 
 
