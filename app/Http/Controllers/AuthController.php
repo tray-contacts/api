@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
+use App\Transformers\UserTransformer;
 
 class AuthController extends Controller
 {
@@ -42,7 +43,7 @@ class AuthController extends Controller
      */
     public function getUser()
     {
-        return $this->response->item(auth()->user(), new UserTransformer);
+        return $this->response->item(Auth::user(), new UserTransformer);
     }
 
     /**
