@@ -18,7 +18,7 @@ class TelephoneSeeder extends Seeder
         const Comercial = 1;
         const Cellular = 2;
 
-        $testUser = User::where('name', 'leonardo')->get()->id;
+        $testUser = User::find(1)->id;
 
         $phones = [
             ['phone_number' => '14996443023', 'user_id' => $testUser, 'phone_type_id' => Cellular],
