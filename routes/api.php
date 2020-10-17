@@ -27,6 +27,8 @@ $api->version(['v1'], function ($api) {
     ]);
 
     $api->group(['middleware' => 'api.auth'], function ($api) {
+        $api->resource('contacts', 'App\Http\Controllers\ContactController'); 
+
         $api->group(['prefix' => 'auth'], function ($api) {
             $api->post('logout', [
                 'as'   => 'auth.logout',
@@ -44,9 +46,6 @@ $api->version(['v1'], function ($api) {
             ]);
 
         });
-
-        $api->resource('contacts', 'App\Http\Controllers\ContactController'); 
-        $api->resource('users', 'App\Http\Controllers\ContactController'); 
     });
 });
 

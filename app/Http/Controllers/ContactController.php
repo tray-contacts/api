@@ -47,8 +47,9 @@ class ContactController extends Controller
         $socials->facebook = $request->facebook; 
         $socials->linkedin = $request->linkedin; 
         $socials->save();
+        $user_id = auth()->user()->id;
 
-        $contact = $this->contactRepository->store($request, $socials->id);
+        $contact = $this->contactRepository->store($request, $socials->id, $user_id);
         return $this->response->item($contact, new ContactTransformer)->statusCode(201);
     }
 

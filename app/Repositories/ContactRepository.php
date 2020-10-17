@@ -36,13 +36,14 @@ class ContactRepository implements IContactRepository
      *
      * @return \App\Models\Contact 
      */
-    public function store(Request $contact_data, int $socials_id){
+    public function store(Request $contact_data, int $socials_id, int $user_id){
         $contact = new Contacts;
-        $contact->name  = $request->name; 
-        $contact->email = $request->email; 
-        $contact->socials_id = $socials->id; // The last socials inserted is the one associated with the contact.
-        $contact->user_id = auth()->user()->id;
-        return $contact->save();
+        $contact->name  = $contact_data->name; 
+        $contact->email = $contact_data->email; 
+        $contact->socials_id = $socials_id; // The last socials inserted is the one associated with the contact.
+        $contact->user_id = $user_id;
+        $contact->save();
+        return $contact;
     }
 }
 

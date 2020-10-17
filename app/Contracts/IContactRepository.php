@@ -26,8 +26,9 @@ interface IContactRepository
      *
      * @param mixed $contact_data
      * @param int   $socials_id
+     * @param int   $user_id
      * @return \App\Models\Contacts
      */
-    function store(Request $contact_data, int $socials_id);
+    function store(Request $contact_data, int $socials_id, int $user_id);
 }
 ?>
