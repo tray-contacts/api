@@ -17,7 +17,10 @@ class CreateSocialsTable extends Migration
             $table->id();
             $table->string('facebook');
             $table->string('linkedin');
+            $table->unsignedBigInteger('contacts_id');
             $table->timestamps();
+
+            $table->foreign('contacts_id')->references('id')->on('contacts');
         });
     }
 

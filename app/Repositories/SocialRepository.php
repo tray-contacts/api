@@ -23,9 +23,16 @@ use App\Contracts\ISocialRepository;
      * @return \App\Models\Contacts
      */
     public function store(array $social_data){
+        if(sizeof($social_data) == 0)
+            $social = new Social;
+            $social->id = -1;
+            return $social;
+
         $social = new Social;
-        $social->facebook = $social_data['facebook']; 
-        $social->linkedin = $social_data['linkedin']; 
+        if(isset($social_data['facebook']))
+            $social->facebook = $social_data['facebook']; 
+        if(isset($social_data['linkedin']))
+            $social->linkedin = $social_data['linkedin']; 
         $social->save();
         return $social;
     }

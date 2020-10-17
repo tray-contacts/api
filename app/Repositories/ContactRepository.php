@@ -39,7 +39,8 @@ class ContactRepository implements IContactRepository
         $contact = new Contacts;
         $contact->name  = $contact_data['name']; 
         $contact->email = $contact_data['email']; 
-        $contact->socials_id = $socials_id; // The last socials inserted is the one associated with the contact.
+        if($socials_id !== -1)
+            $contact->socials_id = $socials_id; // The last socials inserted is the one associated with the contact.
         $contact->user_id = auth()->user()->id;
         $contact->save();
         return $contact;

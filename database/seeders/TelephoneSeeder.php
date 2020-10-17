@@ -20,9 +20,9 @@ class TelephoneSeeder extends Seeder
 
 
         $phones = [
-            ['phone_number' => '14996443023', 'phone_type_id' => $cellular],
-            ['phone_number' => '11908814122', 'phone_type_id' => $comercial],
-            ['phone_number' => '09123840198', 'phone_type_id' => $residential],
+            ['phone_number' => '14996443023', 'phone_type_id' => $cellular, 'contacts_id' => 1, ],
+            ['phone_number' => '11908814122', 'phone_type_id' => $comercial, 'contacts_id' => 2, ],
+            ['phone_number' => '09123840198', 'phone_type_id' => $residential, 'contacts_id' => 3, ],
         ];
 
         foreach($phones as $phone) {

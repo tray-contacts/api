@@ -17,9 +17,11 @@ class CreateTelephonesTable extends Migration
             $table->id();
             $table->string('phone_number');
             $table->unsignedBigInteger('phone_type_id');
+            $table->unsignedBigInteger('contacts_id');
             $table->timestamps();
 
             $table->foreign('phone_type_id')->references('id')->on('phone_types');
+            $table->foreign('contacts_id')->references('id')->on('contacts');
         });
     }
 
