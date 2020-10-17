@@ -3,31 +3,15 @@
 namespace App\Contracts;
 use Illuminate\Http\Request;
 
-interface IContactRepository
+interface ITelephoneRepository 
 {
-
-    /**
-     * Gets all contacts from that user.
-     *
-     * @return mixed
-     */
-    function all();
-
-    /**
-     * Gets a contact from that user based on his id.
-     *
-     * @param int $contact_id
-     * @return \App\Models\Contacts
-     */
-    function get(int $contact_id);
-
     /**
      * Storing logic.
      *
      * @param array $contact_data
      * @return \App\Models\Contacts
      */
-    function store(array $contact_data);
+    function store(array $telephone_data, int $contacts_id);
 
     /**
      * Updating logic.
@@ -36,8 +20,7 @@ interface IContactRepository
      * @param int   $contact_id
      * @return \App\Models\Contacts
      */
-    function update(array $contact_data, int $contact_id);
-
+    function update(array $contact_data);
 
     /**
      * Deletion logic.

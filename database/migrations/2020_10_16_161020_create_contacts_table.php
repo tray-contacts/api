@@ -17,11 +17,9 @@ class CreateContactsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->unsignedBigInteger('socials_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('socials_id')->references('id')->on('socials');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

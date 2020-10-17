@@ -14,9 +14,9 @@ class PhoneTypeSeeder extends Seeder
     public function run()
     {
         $phoneTypes = [
-            ['description' => 'Residencial'],
-            ['description' => 'Comercial'],
-            ['description' => 'Celular'],
+            ['description' => 'Residential'],
+            ['description' => 'Comertial'],
+            ['description' => 'Cellular'],
         ];
 
         foreach($phoneTypes as $type) {

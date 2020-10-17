@@ -25,6 +25,15 @@ class Contacts extends Model
      * @return \Illuminate\Database\Eloquent\Relations\hasOne
      */
     public function socials(){
-        return $this->belongsTo(Social::class);
+        return $this->hasOne(Social::class);
+    }
+
+    /**
+     * Gets the telephone associated with the contact.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function telephone(){
+        return $this->hasOne(Telephone::class);
     }
 }

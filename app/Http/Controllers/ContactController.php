@@ -10,6 +10,7 @@ use App\Http\Requests\EditContactRequest;
 
 use App\Contracts\IContactRepository;
 use App\Contracts\ISocialRepository;
+use App\Contracts\ITelephoneRepository;
 
 class ContactController extends Controller
 {
@@ -23,9 +24,13 @@ class ContactController extends Controller
      * @param ISocialRepository $socialRepository
      * @return void
      */
-    public function __construct(IContactRepository $contactRepository, ISocialRepository $socialRepository) {
+    public function __construct(IContactRepository $contactRepository,
+        ISocialRepository $socialRepository,
+        ITelephoneRepository $telephoneRepository
+    ) {
         $this->contactRepository = $contactRepository;
         $this->socialRepository  = $socialRepository;
+        $this->telephoneRepository = $telephoneRepository;
     }
 
     /**
@@ -48,8 +53,10 @@ class ContactController extends Controller
      */
     public function store(StoreContactRequest $request)
     {
-        $socials = $this->socialRepository->store($request->only(['facebook', 'linkedin']));
-        $contact = $this->contactRepository->store($request->only(['name', 'email']), $socials->id);
+        $contact = $this->contactRepository->store($request->only(['name', 'email']));
+        $this->socialRepository->store($request->only(['socials'])['socials'], $contact->id);
+        $this->telephoneRepository->store($request->only(['telephone'])['telephone'], $contact->id);
+
         return $this->response->item($contact, new ContactTransformer)->statusCode(201);
     }
 
@@ -75,7 +82,8 @@ class ContactController extends Controller
     public function update(EditContactRequest $request, $id)
     {
         $contact = $this->contactRepository->update($request->only(['name', 'email']), $id);
-        $socials = $this->socialRepository->update($request->only(['facebook', 'linkedin']), $contact->socials_id);
+        $this->socialRepository->update($request->only(['socials'])['socials'], $contact->id);
+        $this->telephoneRepository->update($request->only(['telephone'])['telephone']);
         return $this->response->item($contact, new ContactTransformer);
     }
 
@@ -87,8 +95,9 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $contact = $this->contactRepository->delete($id);
-        $socials = $this->socialRepository->delete($contact->socials_id);
+        $this->socialRepository->delete($id);
+        $this->telephoneRepository->delete($id);
+        $this->contactRepository->delete($id);
         return $this->response->accepted(null, ['message' => 'Entity deleted', 'status_code' => 202]);
     }
 }

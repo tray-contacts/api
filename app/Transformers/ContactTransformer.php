@@ -12,7 +12,7 @@ class ContactTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $defaultIncludes = ['socials'];
+    protected $defaultIncludes = ['socials', 'telephone'];
 
     /**
      * Turn this item object into a generic array
@@ -35,7 +35,23 @@ class ContactTransformer extends TransformerAbstract
      * @return \League\Fractal\Resource\Item
      */
     public function includeSocials(Contacts $contact){
+        if($contact->socials === null)
+            return null;
+
         return $this->item($contact->socials, new SocialTransformer); 
+    }
+
+    /**
+     * Include socials 
+     *
+     * @param Contacts $contact
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeTelephone(Contacts $contact){
+        if($contact->telephone === null)
+            return null;
+
+        return $this->item($contact->telephone, new TelephoneTransformer); 
     }
 }
 

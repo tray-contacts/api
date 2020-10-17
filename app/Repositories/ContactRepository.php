@@ -31,15 +31,13 @@ class ContactRepository implements IContactRepository
      * Storing logic.
      *
      * @param array $contact_data
-     * @param int $socials_id 
      *
      * @return \App\Models\Contact 
      */
-    public function store(array $contact_data, int $socials_id){
+    public function store(array $contact_data){
         $contact = new Contacts;
         $contact->name  = $contact_data['name']; 
         $contact->email = $contact_data['email']; 
-        $contact->socials_id = $socials_id; // The last socials inserted is the one associated with the contact.
         $contact->user_id = auth()->user()->id;
         $contact->save();
         return $contact;

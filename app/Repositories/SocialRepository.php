@@ -20,12 +20,19 @@ use App\Contracts\ISocialRepository;
      * Storing logic.
      *
      * @param array $social_data
+     * @param int   $contacts_id
      * @return \App\Models\Contacts
      */
-    public function store(array $social_data){
+    public function store(array $social_data, int $contacts_id){
+        if(sizeof($social_data) == 0)
+            return null;
+
         $social = new Social;
-        $social->facebook = $social_data['facebook']; 
-        $social->linkedin = $social_data['linkedin']; 
+        if(isset($social_data['facebook']))
+            $social->facebook = $social_data['facebook']; 
+        if(isset($social_data['linkedin']))
+            $social->linkedin = $social_data['linkedin']; 
+        $social->contacts_id = $contacts_id;
         $social->save();
         return $social;
     }
@@ -50,8 +57,7 @@ use App\Contracts\ISocialRepository;
      * @return \App\Models\Social
      */
     public function delete(int $id){
-        $social = Social::findOrFail($id); 
-        $social->delete();
+        $social = Social::where('contacts_id', $id)->delete(); 
         return $social;
     }
 
