@@ -57,8 +57,7 @@ use App\Contracts\ISocialRepository;
      * @return \App\Models\Social
      */
     public function delete(int $id){
-        $social = Social::findOrFail($id); 
-        $social->delete();
+        $social = Social::where('contacts_id', $id)->delete(); 
         return $social;
     }
 

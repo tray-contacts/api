@@ -95,8 +95,9 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $contact = $this->contactRepository->delete($id);
-        $socials = $this->socialRepository->delete($contact->socials_id);
+        $this->socialRepository->delete($id);
+        $this->telephoneRepository->delete($id);
+        $this->contactRepository->delete($id);
         return $this->response->accepted(null, ['message' => 'Entity deleted', 'status_code' => 202]);
     }
 }

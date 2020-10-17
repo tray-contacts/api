@@ -44,8 +44,7 @@ class TelephoneRepository implements ITelephoneRepository
      * @return \App\Models\Telephone
      */
     public function delete(int $id){
-        $phone = Telephone::findOrFail($id); 
-        $phone->delete();
+        $phone = Telephone::where('contacts_id', $id)->delete(); 
         return $phone;
     }
 
