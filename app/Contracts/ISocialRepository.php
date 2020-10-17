@@ -28,5 +28,13 @@ interface ISocialRepository
      * @return \App\Models\Social
      */
     function update(array $social_data, int $social_id);
+
+    /**
+     * Deletion logic.
+     *
+     * @param int $social_id
+     * @return \App\Models\Social
+     */
+    function delete(int $social_id);
 }
 ?>

@@ -57,6 +57,18 @@ class ContactRepository implements IContactRepository
         $contact->update($contact_data);
         return $contact;
     }
+
+    /**
+     * Deletion logic.
+     *
+     * @param int $contact_id
+     * @return \App\Models\Contacts
+     */
+    function delete(int $contact_id){
+        $contact = Contacts::findOrFail($contact_id);
+        $contact->delete();
+        return $contact;
+    }
 }
 
 ?>

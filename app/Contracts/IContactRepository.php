@@ -40,5 +40,14 @@ interface IContactRepository
      * @return \App\Models\Contacts
      */
     function update(array $contact_data, int $contact_id);
+
+
+    /**
+     * Deletion logic.
+     *
+     * @param int $contact_id
+     * @return \App\Models\Contacts
+     */
+    function delete(int $contact_id);
 }
 ?>

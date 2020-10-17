@@ -4,7 +4,7 @@ namespace App\Repositories;
 use App\Models\Social;
 use App\Contracts\ISocialRepository;
 
-class SocialRepository implements ISocialRepository 
+    class SocialRepository implements ISocialRepository 
 {
     /**
      * Gets the socials from the contact.
@@ -37,11 +37,24 @@ class SocialRepository implements ISocialRepository
      * @param int   $social_id
      * @return \App\Models\Social
      */
-    function update(array $social_data, int $social_id){
+    public function update(array $social_data, int $social_id){
         $social = Social::findOrFail($social_id);
         $social->update($social_data);
         return $social;
     }
+
+    /**
+     * Deletion logic.
+     *
+     * @param int $social_id
+     * @return \App\Models\Social
+     */
+    public function delete(int $id){
+        $social = Social::findOrFail($id); 
+        $social->delete();
+        return $social;
+    }
+
 }
 
 ?>
