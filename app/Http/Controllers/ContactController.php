@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Contacts;
 use App\Models\Social;
 use App\Transformers\ContactTransformer;
 use App\Http\Requests\StoreContactRequest;
@@ -31,8 +30,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contacts::where('user_id', auth()->user()->id)
-                        ->paginate(env('MAX_ITEMS_PER_PAGE', 25));
+        $contacts = $this->contactRepository->all();
 
         return $this->response->paginator($contacts, new ContactTransformer);
     }
@@ -50,13 +48,7 @@ class ContactController extends Controller
         $socials->linkedin = $request->linkedin; 
         $socials->save();
 
-        $contact = new Contacts;
-        $contact->name  = $request->name; 
-        $contact->email = $request->email; 
-        $contact->socials_id = $socials->id; // The last socials inserted is the one associated with the contact.
-        $contact->user_id = auth()->user()->id;
-        $contact->save();
-
+        $contact = $this->contactRepository->store($request, $socials->id);
         return $this->response->item($contact, new ContactTransformer)->statusCode(201);
     }
 
@@ -68,8 +60,7 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-        $contact = Contacts::where('id', $id)
-                    ->where('user_id', auth()->user()->id)->firstOrFail();
+        $contact = $this->contactRepository->get($id);
         return $this->response->item($contact, new ContactTransformer);
     }
 

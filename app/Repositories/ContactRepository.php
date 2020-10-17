@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use App\Contracts\IContactRepository;
 use Illuminate\Http\Request;
+use App\Models\Contacts;
 
 class ContactRepository implements IContactRepository 
 {
@@ -22,7 +23,7 @@ class ContactRepository implements IContactRepository
      * @param int $contact_id
      */
     public function get(int $contact_id){
-        return Contacts::where('id', $id)
+        return Contacts::where('id', $contact_id)
             ->where('user_id', auth()->user()->id)
             ->firstOrFail();
     }
@@ -33,7 +34,7 @@ class ContactRepository implements IContactRepository
      * @param Request $request 
      * @param int $socials_id 
      *
-     * @return \App\Models\Contacts 
+     * @return \App\Models\Contact 
      */
     public function store(Request $contact_data, int $socials_id){
         $contact = new Contacts;
