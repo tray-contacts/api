@@ -22,9 +22,9 @@ class ContactRepository implements IContactRepository
      *
      * @param int $contact_id
      */
-    public function get(int $contact_id){
+    public function get(int $contact_id, int $user_id){
         return Contacts::where('id', $contact_id)
-            ->where('user_id', auth()->user()->id)
+            ->where('user_id', $user_id)
             ->firstOrFail();
     }
 

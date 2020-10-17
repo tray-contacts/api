@@ -17,9 +17,10 @@ interface IContactRepository
      * Gets a contact from that user based on his id.
      *
      * @param int $contact_id
+     * @param int $user_id
      * @return \App\Models\Contacts
      */
-    function get(int $contact_id);
+    function get(int $contact_id, int $user_id);
 
     /**
      * Storing logic.

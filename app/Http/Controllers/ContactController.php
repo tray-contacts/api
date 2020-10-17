@@ -61,7 +61,8 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-        $contact = $this->contactRepository->get($id);
+        $user_id = auth()->user()->id;
+        $contact = $this->contactRepository->get($id, $user_id);
         return $this->response->item($contact, new ContactTransformer);
     }
 
