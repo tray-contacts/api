@@ -48,8 +48,8 @@ class ContactController extends Controller
      */
     public function store(StoreContactRequest $request)
     {
-        $socials = $this->socialRepository->store($request->only(['facebook', 'linkedin']));
-        $contact = $this->contactRepository->store($request->only(['name', 'email']), $socials->id);
+        $contact = $this->contactRepository->store($request->only(['name', 'email']));
+        $socials = $this->socialRepository->store($request->only(['socials'])['socials'], $contact->id);
         return $this->response->item($contact, new ContactTransformer)->statusCode(201);
     }
 
@@ -74,8 +74,8 @@ class ContactController extends Controller
      */
     public function update(EditContactRequest $request, $id)
     {
-        $contact = $this->contactRepository->update($request->only(['name', 'email']), $id);
-        $socials = $this->socialRepository->update($request->only(['facebook', 'linkedin']), $contact->socials_id);
+        $contact = $this->contactRepository->update($socials->only(['name', 'email']), $id);
+        $socials = $this->socialRepository->update($request->only(['socials']), $contact->id);
         return $this->response->item($contact, new ContactTransformer);
     }
 

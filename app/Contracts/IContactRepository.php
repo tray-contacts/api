@@ -25,12 +25,9 @@ interface IContactRepository
      * Storing logic.
      *
      * @param array $contact_data
-     * @param int   $socials_id
      * @return \App\Models\Contacts
      */
-    function store(array $contact_data, int $socials_id);
-
-
+    function store(array $contact_data);
 
     /**
      * Updating logic.

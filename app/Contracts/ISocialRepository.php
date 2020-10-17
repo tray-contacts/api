@@ -16,9 +16,10 @@ interface ISocialRepository
      * Storing logic.
      *
      * @param array $social_data
+     * @param int   $contact_id
      * @return \App\Models\Contacts
      */
-    function store(array $social_data);
+    function store(array $social_data, int $contacts_id);
 
     /**
      * Updating logic.
