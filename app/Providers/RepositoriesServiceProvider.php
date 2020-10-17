@@ -14,6 +14,7 @@ class RepositoriesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('App\Contracts\IContactRepository', 'App\Repositories\ContactRepository');
+        $this->app->bind('App\Contracts\ISocialRepository', 'App\Repositories\SocialRepository');
     }
 
     /**

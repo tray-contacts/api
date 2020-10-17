@@ -9,18 +9,23 @@ use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\EditContactRequest;
 
 use App\Contracts\IContactRepository;
+use App\Contracts\ISocialRepository;
 
 class ContactController extends Controller
 {
     private $contactRepository;
+    private $socialRepository;
+
     /**
      * Create a new ContactController instance.
      *
      * @param IContactRepository $contactRepository
+     * @param ISocialRepository $socialRepository
      * @return void
      */
-    public function __construct(IContactRepository $contactRepository) {
+    public function __construct(IContactRepository $contactRepository, ISocialRepository $socialRepository) {
         $this->contactRepository = $contactRepository;
+        $this->socialRepository  = $socialRepository;
     }
 
     /**
@@ -43,11 +48,7 @@ class ContactController extends Controller
      */
     public function store(StoreContactRequest $request)
     {
-        $socials = new Social;
-        $socials->facebook = $request->facebook; 
-        $socials->linkedin = $request->linkedin; 
-        $socials->save();
-
+        $socials = $this->socialRepository->store($request->only(['facebook', 'linkedin']));
         $contact = $this->contactRepository->store($request->only(['name', 'email']), $socials->id);
         return $this->response->item($contact, new ContactTransformer)->statusCode(201);
     }
@@ -74,6 +75,7 @@ class ContactController extends Controller
     public function update(EditContactRequest $request, $id)
     {
         $contact = $this->contactRepository->update($request->only(['name', 'email']), $id);
+        $socials = $this->socialRepository->update($request->only(['facebook', 'linkedin']), $contact->socials_id);
         return $this->response->item($contact, new ContactTransformer);
     }
 
