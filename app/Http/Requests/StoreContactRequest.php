@@ -24,10 +24,10 @@ class StoreContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email',
-            'facebook' => 'required',
-            'linkedin' => 'required',
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:contacts|max:255',
+            'facebook' => 'unique:socials|max:255',
+            'linkedin' => 'unique:socials|max:255',
         ];
     }
 }
