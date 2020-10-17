@@ -10,6 +10,7 @@ use App\Http\Requests\EditContactRequest;
 
 use App\Contracts\IContactRepository;
 use App\Contracts\ISocialRepository;
+use App\Contracts\ITelephoneRepository;
 
 class ContactController extends Controller
 {
@@ -23,9 +24,13 @@ class ContactController extends Controller
      * @param ISocialRepository $socialRepository
      * @return void
      */
-    public function __construct(IContactRepository $contactRepository, ISocialRepository $socialRepository) {
+    public function __construct(IContactRepository $contactRepository,
+        ISocialRepository $socialRepository,
+        ITelephoneRepository $telephoneRepository
+    ) {
         $this->contactRepository = $contactRepository;
         $this->socialRepository  = $socialRepository;
+        $this->telephoneRepository = $telephoneRepository;
     }
 
     /**
@@ -49,7 +54,9 @@ class ContactController extends Controller
     public function store(StoreContactRequest $request)
     {
         $contact = $this->contactRepository->store($request->only(['name', 'email']));
-        $socials = $this->socialRepository->store($request->only(['socials'])['socials'], $contact->id);
+        $this->socialRepository->store($request->only(['socials'])['socials'], $contact->id);
+        $this->telephoneRepository->store($request->only(['telephone'])['telephone'], $contact->id);
+
         return $this->response->item($contact, new ContactTransformer)->statusCode(201);
     }
 
