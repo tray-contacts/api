@@ -10,6 +10,16 @@ class Contacts extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'email',
+    ];
+
+    /**
      * Gets the socials associated with the contact.
      *
      * @return \Illuminate\Database\Eloquent\Relations\hasOne

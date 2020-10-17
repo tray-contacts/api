@@ -17,19 +17,28 @@ interface IContactRepository
      * Gets a contact from that user based on his id.
      *
      * @param int $contact_id
-     * @param int $user_id
      * @return \App\Models\Contacts
      */
-    function get(int $contact_id, int $user_id);
+    function get(int $contact_id);
 
     /**
      * Storing logic.
      *
-     * @param mixed $contact_data
+     * @param array $contact_data
      * @param int   $socials_id
-     * @param int   $user_id
      * @return \App\Models\Contacts
      */
-    function store(Request $contact_data, int $socials_id, int $user_id);
+    function store(array $contact_data, int $socials_id);
+
+
+
+    /**
+     * Updating logic.
+     *
+     * @param array $contact_data
+     * @param int   $contact_id
+     * @return \App\Models\Contacts
+     */
+    function update(array $contact_data, int $contact_id);
 }
 ?>

@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 use App\Contracts\IContactRepository;
-use Illuminate\Http\Request;
 use App\Models\Contacts;
 
 class ContactRepository implements IContactRepository 
@@ -22,27 +21,40 @@ class ContactRepository implements IContactRepository
      *
      * @param int $contact_id
      */
-    public function get(int $contact_id, int $user_id){
+    public function get(int $contact_id){
         return Contacts::where('id', $contact_id)
-            ->where('user_id', $user_id)
+            ->where('user_id', auth()->user()->id)
             ->firstOrFail();
     }
 
     /**
      * Storing logic.
      *
-     * @param Request $request 
+     * @param array $contact_data
      * @param int $socials_id 
      *
      * @return \App\Models\Contact 
      */
-    public function store(Request $contact_data, int $socials_id, int $user_id){
+    public function store(array $contact_data, int $socials_id){
         $contact = new Contacts;
-        $contact->name  = $contact_data->name; 
-        $contact->email = $contact_data->email; 
+        $contact->name  = $contact_data['name']; 
+        $contact->email = $contact_data['email']; 
         $contact->socials_id = $socials_id; // The last socials inserted is the one associated with the contact.
-        $contact->user_id = $user_id;
+        $contact->user_id = auth()->user()->id;
         $contact->save();
+        return $contact;
+    }
+
+    /**
+     * Updating logic.
+     *
+     * @param array $contact_data
+     * @param int   $contact_id
+     * @return \App\Models\Contacts
+     */
+    public function update(array $contact_data, int $contact_id){
+        $contact = Contacts::findOrFail($contact_id);
+        $contact->update($contact_data);
         return $contact;
     }
 }
