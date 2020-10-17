@@ -53,15 +53,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * Gets the telephone associated with the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
-     */
-    public function telephone(){
-        return $this->hasOne(Telephone::class);
-    }
-
-    /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
      * @return array

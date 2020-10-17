@@ -27,4 +27,13 @@ class Contacts extends Model
     public function socials(){
         return $this->belongsTo(Social::class);
     }
+
+    /**
+     * Gets the telephone associated with the contact.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function telephone(){
+        return $this->belongsTo(Telephone::class);
+    }
 }
