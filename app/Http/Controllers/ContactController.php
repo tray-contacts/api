@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contacts;
+use App\Models\Social;
 use App\Transformers\ContactTransformer;
+use App\Http\Requests\StoreContactRequest;
 
 class ContactController extends Controller
 {
@@ -22,24 +24,26 @@ class ContactController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Dingo\Api\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Dingo\Api\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
-        //
+        $socials = new Social;
+        $socials->facebook = $request->facebook; 
+        $socials->linkedin = $request->linkedin; 
+        $socials->save();
+
+        $contact = new Contacts;
+        $contact->name  = $request->name; 
+        $contact->email = $request->email; 
+        $contact->socials_id = $socials->id; // The last socials inserted is the one associated with the contact.
+        $contact->user_id = auth()->user()->id;
+        $contact->save();
+
+        return $this->response->item($contact, new ContactTransformer)->statusCode(201);
     }
 
     /**
