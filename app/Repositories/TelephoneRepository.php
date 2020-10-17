@@ -10,7 +10,7 @@ class TelephoneRepository implements ITelephoneRepository
      * Storing logic.
      *
      * @param array $telephone_data
-     * @return \App\Models\Contacts
+     * @return \App\Models\Telephone
      */
     public function store(array $telephone_data, int $contacts_id){
         if(sizeof($telephone_data) == 0)
@@ -29,24 +29,24 @@ class TelephoneRepository implements ITelephoneRepository
      *
      * @param array $social_data
      * @param int   $social_id
-     * @return \App\Models\Social
+     * @return \App\Models\Telephone
      */
-    public function update(array $social_data, int $social_id){
-        $social = Social::findOrFail($social_id);
-        $social->update($social_data);
-        return $social;
+    public function update(array $telephone_data){
+        $phone = Telephone::findOrFail($telephone_data['id']);
+        $phone->update($telephone_data);
+        return $phone;
     }
 
     /**
      * Deletion logic.
      *
      * @param int $social_id
-     * @return \App\Models\Social
+     * @return \App\Models\Telephone
      */
     public function delete(int $id){
-        $social = Social::findOrFail($id); 
-        $social->delete();
-        return $social;
+        $phone = Telephone::findOrFail($id); 
+        $phone->delete();
+        return $phone;
     }
 
 }

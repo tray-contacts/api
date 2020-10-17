@@ -20,7 +20,7 @@ interface ITelephoneRepository
      * @param int   $contact_id
      * @return \App\Models\Contacts
      */
-    function update(array $contact_data, int $contact_id);
+    function update(array $contact_data);
 
     /**
      * Deletion logic.
