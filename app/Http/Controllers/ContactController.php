@@ -7,11 +7,25 @@ use App\Models\Contacts;
 use App\Models\Social;
 use App\Transformers\ContactTransformer;
 use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\EditContactRequest;
+
+use App\Contracts\IContactRepository;
 
 class ContactController extends Controller
 {
+    private $contactRepository;
     /**
-     * Display a listing of the resource.
+     * Create a new ContactController instance.
+     *
+     * @param IContactRepository $contactRepository
+     * @return void
+     */
+    public function __construct(IContactRepository $contactRepository) {
+        $this->contactRepository = $contactRepository;
+    }
+
+    /**
+     * [GET] Display a listing of the resource.
      *
      * @return \Dingo\Api\Http\Response
      */
@@ -24,7 +38,7 @@ class ContactController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * [POST] Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Dingo\Api\Http\Response
@@ -47,25 +61,16 @@ class ContactController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * [GET] Display the specified resource.
      *
      * @param  int  $id
      * @return \Dingo\Api\Http\Response
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Dingo\Api\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $contact = Contacts::where('id', $id)
+                    ->where('user_id', auth()->user()->id)->firstOrFail();
+        return $this->response->item($contact, new ContactTransformer);
     }
 
     /**
@@ -75,9 +80,9 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Dingo\Api\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditContactRequest $request, $id)
     {
-        //
+
     }
 
     /**

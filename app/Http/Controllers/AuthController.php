@@ -7,6 +7,7 @@ use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 use App\Transformers\UserTransformer;
+use App\Contracts\IContactRepository;
 
 class AuthController extends Controller
 {

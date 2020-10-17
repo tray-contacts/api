@@ -181,6 +181,10 @@ return [
          */
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
+        /*
+         * Repositories Service Providers.
+         */
+        App\Providers\RepositoriesServiceProvider::class,
     ],
 
     /*
@@ -232,7 +236,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
 
 ];
