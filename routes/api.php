@@ -45,6 +45,7 @@ $api->version(['v1'], function ($api) {
 
         });
 
+        $api->resource('contacts', 'App\Http\Controllers\ContactController'); 
     });
 });
 

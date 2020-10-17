@@ -43,7 +43,7 @@ class AuthController extends Controller
      */
     public function getUser()
     {
-        return $this->response->item(Auth::user(), new UserTransformer);
+        return $this->response->item(auth()->user(), new UserTransformer);
     }
 
     /**
