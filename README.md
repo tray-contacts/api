@@ -8,8 +8,8 @@ Uma API em Laravel para cadastro de contatos.
 - [x] Criação e população do Banco de dados.
 - [x] CRUD de contatos.
 - [ ] Documentação [/docs].
-- [ ] Disparo de Emails.
-- [ ] Classes Mailable.
+- [x] Disparo de Emails.
+- [x] Classes Mailable.
 - [ ] Disparo de Emails em segundo plano.
 - [ ] Docker Redis.
 

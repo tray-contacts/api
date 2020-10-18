@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Social;
 use App\Transformers\ContactTransformer;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\EditContactRequest;
+use App\Mail\NewContactNotification;
+use App\Jobs\EmailQueue;
 
 use App\Contracts\IContactRepository;
 use App\Contracts\ISocialRepository;
@@ -57,6 +60,7 @@ class ContactController extends Controller
         $this->socialRepository->store($request->only(['socials'])['socials'], $contact->id);
         $this->telephoneRepository->store($request->only(['telephone'])['telephone'], $contact->id);
 
+        EmailQueue::dispatch($contact, new NewContactNotification);
         return $this->response->item($contact, new ContactTransformer)->statusCode(201);
     }
 
