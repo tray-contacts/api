@@ -20,7 +20,7 @@ services:
     networks:
       - app-network
 
-    # MongoDB Service
+    # Postgres Service
   postgresql:
     image: postgres
     container_name: database 
