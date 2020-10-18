@@ -10,6 +10,6 @@ Uma API em Laravel para cadastro de contatos.
 - [ ] Documentação [/docs].
 - [x] Disparo de Emails.
 - [x] Classes Mailable.
-- [ ] Disparo de Emails em segundo plano.
-- [ ] Docker Redis.
+- [x] Disparo de Emails em segundo plano.
+- [x] Docker Redis.
 
