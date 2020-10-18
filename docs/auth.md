@@ -4,7 +4,7 @@
 
 ## Get a JWT via given credentials. [POST /auth/login]
 
-     + Request (application/json)
+ + Request (application/json)
     + Body
         ```json
         {
