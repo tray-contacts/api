@@ -25,10 +25,10 @@ class StoreContactRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:contacts|max:255',
-            'socials.facebook' => 'unique:socials|max:255',
-            'socials.linkedin' => 'unique:socials|max:255',
-            'telephones.phone_number' => 'unique:telephones|max:255',
+            'email' => 'required|email|max:255',
+            'socials.facebook' => 'max:255',
+            'socials.linkedin' => 'max:255',
+            'telephones.phone_number' => 'max:255',
             'telephones.phone_type_id' => 'max:255',
         ];
     }
