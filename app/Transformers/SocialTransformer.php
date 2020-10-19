@@ -16,6 +16,7 @@ class SocialTransformer extends TransformerAbstract
     public function transform(Social $social)
     {
         return [
+            'id'       => $social->id,
             'facebook' => $social->facebook,
             'linkedin' => $social->linkedin,
         ];
