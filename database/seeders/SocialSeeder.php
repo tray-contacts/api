@@ -15,8 +15,9 @@ class SocialSeeder extends Seeder
     {
         $socials = [
             ['facebook' => 'facebook.com/gabriel' , 'linkedin' => 'linkedin.com/gabriel', 'contacts_id' => 1, ],
-            ['facebook' => 'facebook.com/fernanda', 'linkedin' => 'linkedin.com/fernanda', 'contacts_id' => 2, ],
-            ['facebook' => 'facebook.com/carolina', 'linkedin' => 'linkedin.com/carolina', 'contacts_id' => 3, ],
+            ['linkedin' => 'linkedin.com/fernanda', 'contacts_id' => 2, ],
+            ['facebook' => 'facebook.com/carolina', 'contacts_id' => 3, ],
+            ['contacts_id' => 4, ],
         ];
 
         foreach($socials as $social) {

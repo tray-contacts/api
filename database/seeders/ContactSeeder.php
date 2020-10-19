@@ -17,6 +17,7 @@ class ContactSeeder extends Seeder
             [ 'name' => 'Gabriel Perez', 'email' => 'gabriel.perez@tray.net.br', 'user_id' => 1, ],
             [ 'name' => 'Fernanda Mazuquini', 'email' => 'fmazuquini@tray.net.br', 'user_id' => 1, ],
             [ 'name' => 'Carolina Ribeiro', 'email' => 'clivolis@tray.net.br', 'user_id' => 1, ],
+            [ 'name' => 'Leonardo', 'email' => 'leonardo@tray.net.br', 'user_id' => 1, ],
         ];
 
         foreach($contacts as $contact) {

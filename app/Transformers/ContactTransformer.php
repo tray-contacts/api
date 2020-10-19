@@ -23,7 +23,8 @@ class ContactTransformer extends TransformerAbstract
     public function transform(Contacts $contact)
     {
         return [
-            'name' => $contact->name,
+            'id'    => $contact->id,
+            'name'  => $contact->name,
             'email' => $contact->email,
         ];
     }
