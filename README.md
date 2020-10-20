@@ -72,9 +72,10 @@ Cria o banco de dados e o popule.
     php artisan migrate:fresh --seed
 ```
 
-Tudo pronto, execute o servidor.
+Tudo pronto, execute o servidor e rode os jobs.
 ```bash
     php artisan serve
+    php artisan queue:work
 ```
 
 ## TODO List: 

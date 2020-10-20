@@ -87,7 +87,7 @@ class ContactController extends Controller
     {
         $contact = $this->contactRepository->update($request->only(['name', 'email']), $id);
         $this->socialRepository->update($request->only(['socials'])['socials'], $contact->id);
-        $this->telephoneRepository->update($request->only(['telephone'])['telephone']);
+        /* $this->telephoneRepository->update($request->only(['telephone'])['telephone']); */
         return $this->response->item($contact, new ContactTransformer);
     }
 
